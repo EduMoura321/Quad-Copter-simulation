@@ -1,0 +1,33 @@
+#--------------------------------------------------------------
+#aplicando runge kuta 4 para o estado como todo e suas variaveis
+def rk4_step(eqt, state, inputs, dt, params):
+    # k1
+    k1 = eqt(state, inputs, params)
+
+    # k2
+    state_k2 = []
+    #loop é aplicado para resolver todas variaveis
+    for i in range(len(state)):
+        state_k2.append(state[i] + 0.5 * dt * k1[i])
+    k2 = eqt(state_k2, inputs, params)
+
+    # k3
+    state_k3 = []
+    for i in range(len(state)):
+        state_k3.append(state[i] + 0.5 * dt * k2[i])
+    k3 = eqt(state_k3, inputs, params)
+
+    # k4
+    state_k4 = []
+    for i in range(len(state)):
+        state_k4.append(state[i] + dt * k3[i])
+    k4 = eqt(state_k4, inputs, params)
+
+    # Estado final
+    next_state = []
+    for i in range(len(state)):
+        next_val = state[i] + (dt / 6.0) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i])
+        next_state.append(next_val)
+
+    return next_state
+#------------------------------------------------------------------
