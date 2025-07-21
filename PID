@@ -1,0 +1,16 @@
+#controle de altura do drone por PID(1 variavel)
+#definição de parametros
+
+#=====================================================================
+#função que aplica PID
+def pid_controll(kp,ki,kd,integ_err, last_err, state,error, dt):
+    integ_err += error*dt
+    integ_err = max(min(integ_err, 5.0), -5.0)
+    drv = (error - last_err)/dt
+    u = kp*error + ki*integ_err + kd*drv
+    return u, integ_err, error
+#=====================================================================
+#
+
+
+
