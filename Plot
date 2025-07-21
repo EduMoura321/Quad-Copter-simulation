@@ -1,0 +1,61 @@
+#função para gráfico
+import matplotlib.pyplot as plt
+
+def graphs( time, time_errors,states, errors, z_exp ):
+    # gráfico
+    plt.figure(figsize=(12, 8))
+
+    # gráfico 1: altura
+    plt.subplot(3, 2, 1)
+    plt.plot(time, states[:,1], label='z(t)')
+    plt.axhline(z_exp, color='green', linestyle='--', label='z_ref')
+    plt.legend()
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Altura (m)")
+    plt.title("Altura do Quadcopter ajustada com PID (RK4)")
+    plt.grid(True)
+    # gráfico 2 deslocamento
+    plt.subplot(3, 2, 2)
+    plt.plot(time, states[:, 0], label='deslocamento x(t)')
+    plt.legend()
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Deslocamento (m)")
+    plt.title("deslocamento do Quadcopter (RK4)")
+    plt.grid(True)
+    # gráfico 3 angular
+    plt.subplot(3, 2, 3)
+    plt.plot(time, states[:, 2], label='Ângulo θ(t)')
+    plt.legend()
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Ângulo (rad)")
+    plt.title("deslocamento em teta do Quadcopter (RK4)")
+    plt.grid(True)
+    # Força 1
+    plt.subplot(3, 2, 4)
+    plt.plot(time, states[:, 6], label='Força F1(t)')
+    plt.legend()
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Força (N)")
+    plt.title("Força Motor 1(RK4)")
+    plt.grid(True)
+    # Força 2
+    plt.subplot(3, 2, 5)
+    plt.plot(time, states[:, 7], label='Força F2(t)')
+    plt.legend()
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Força (N)")
+    plt.title("Força Motor 2(RK4)")
+    plt.grid(True)
+    # gráfico 6: erro
+    plt.subplot(3, 2, 6)
+    plt.plot(time_errors, errors, label='Erro de Altura e(t) = z_ref - z(t)', color='crimson')
+    plt.axhline(0, linestyle='--', color='gray')
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Erro (m)")
+    plt.title("Desempenho do Controlador PID na Altura")
+    plt.legend()
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.show()
+#============================================================================================================
